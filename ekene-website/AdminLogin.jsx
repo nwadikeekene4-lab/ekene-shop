@@ -24,11 +24,15 @@ export function AdminLogin() {
         localStorage.setItem("isAdminAuthenticated", "true");
         window.location.href = "/admin";
       }
-    } catch (err) {
-      setError("Incorrect Username or Password");
-      setIsLoading(false); // Stop loading if it fails
-    }
-  };
+    }  catch (err) {
+      console.error("The actual error is:", err); // This tells us the truth in the console
+      if (err.response) {
+        setError("Wrong Password/Username");
+      } else {
+        setError("Server Connection Failed (Check console)");
+      }
+      setIsLoading(false);
+    };
 
   return (
     <div className="admin-login-page">
